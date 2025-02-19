@@ -3,10 +3,10 @@ package xy
 import (
 	"sort"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/bigxy"
-	"github.com/twpayne/go-geom/sorting"
-	"github.com/twpayne/go-geom/xy/orientation"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/bigxy"
+	"github.com/don4get/go-geom/sorting"
+	"github.com/don4get/go-geom/xy/orientation"
 )
 
 // NewRadialSorting creates an implementation sort.Interface which will sort the wrapped coordinate array

@@ -123,9 +123,9 @@ linters-settings:
     sections:
     - standard
     - default
-    - prefix(github.com/twpayne/go-geom)
+    - prefix(github.com/don4get/go-geom)
   goimports:
-    local-prefixes: github.com/twpayne/go-geom
+    local-prefixes: github.com/don4get/go-geom
   ireturn:
     allow:
     - error

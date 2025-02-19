@@ -6,8 +6,8 @@ import (
 
 	"github.com/alecthomas/assert/v2"
 
-	geom "github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/encoding/ewkb"
+	geom "github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/encoding/ewkb"
 )
 
 func test(t *testing.T, g geom.T, xdr, ndr string) {

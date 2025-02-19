@@ -7,9 +7,9 @@ import (
 
 	"github.com/alecthomas/assert/v2"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/bigxy"
-	"github.com/twpayne/go-geom/xy/orientation"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/bigxy"
+	"github.com/don4get/go-geom/xy/orientation"
 )
 
 func TestOrientationIndex(t *testing.T) {

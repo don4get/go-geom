@@ -6,7 +6,7 @@ import (
 
 	"github.com/twpayne/go-kml/v3"
 
-	"github.com/twpayne/go-geom/encoding/igc"
+	"github.com/don4get/go-geom/encoding/igc"
 )
 
 func run() error {

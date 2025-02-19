@@ -4,7 +4,7 @@ package wkt
 
 import __yyfmt__ "fmt"
 
-import "github.com/twpayne/go-geom"
+import "github.com/don4get/go-geom"
 
 type wktSymType struct {
 	yys               int

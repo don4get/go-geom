@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/encoding/wkbcommon"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/encoding/wkbcommon"
 )
 
 // ErrExpectedByteSlice is returned when a []byte is expected.

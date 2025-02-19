@@ -7,7 +7,7 @@ import (
 
 	"github.com/alecthomas/assert/v2"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 func Test(t *testing.T) {

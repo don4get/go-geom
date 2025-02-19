@@ -7,10 +7,10 @@ import (
 
 	"github.com/alecthomas/assert/v2"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/encoding/wkbcommon"
-	"github.com/twpayne/go-geom/internal/geomtest"
-	"github.com/twpayne/go-geom/internal/testdata"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/encoding/wkbcommon"
+	"github.com/don4get/go-geom/internal/geomtest"
+	"github.com/don4get/go-geom/internal/testdata"
 )
 
 func test(t *testing.T, g geom.T, xdr, ndr []byte, opts ...wkbcommon.WKBOption) {

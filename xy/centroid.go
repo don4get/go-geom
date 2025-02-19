@@ -3,7 +3,7 @@ package xy
 import (
 	"fmt"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // Centroid calculates the centroid of the geometry.  The centroid may be outside of the geometry depending

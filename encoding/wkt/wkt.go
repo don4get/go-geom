@@ -9,7 +9,7 @@ package wkt
 import (
 	"errors"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 const (

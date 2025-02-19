@@ -1,6 +1,6 @@
 package lineintersection
 
-import "github.com/twpayne/go-geom"
+import "github.com/don4get/go-geom"
 
 // Type enumerates the types of intersection two lines can have
 type Type int

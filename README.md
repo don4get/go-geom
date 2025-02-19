@@ -1,7 +1,7 @@
 # go-geom
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/twpayne/go-geom)](https://pkg.go.dev/github.com/twpayne/go-geom)
-[![Go Report Card](https://goreportcard.com/badge/github.com/twpayne/go-geom)](https://goreportcard.com/report/github.com/twpayne/go-geom)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/don4get/go-geom)](https://pkg.go.dev/github.com/don4get/go-geom)
+[![Go Report Card](https://goreportcard.com/badge/github.com/don4get/go-geom)](https://goreportcard.com/report/github.com/don4get/go-geom)
 
 Package `geom` implements efficient geometry types for geospatial applications.
 
@@ -14,42 +14,42 @@ Package `geom` implements efficient geometry types for geospatial applications.
   others) including [`sql.Scanner`](https://pkg.go.dev/database/sql#Scanner) and
   [`driver.Value`](https://pkg.go.dev/database/sql/driver#Value) interface
   implementations for easy database integration.
-* [2D](https://pkg.go.dev/github.com/twpayne/go-geom/xy) and
-  [3D](https://pkg.go.dev/github.com/twpayne/go-geom/xyz) topology functions.
+* [2D](https://pkg.go.dev/github.com/don4get/go-geom/xy) and
+  [3D](https://pkg.go.dev/github.com/don4get/go-geom/xyz) topology functions.
 * Efficient, cache-friendly [internal representation](INTERNALS.md).
 * Optional protection against malicious or malformed inputs.
 
 ## Examples
 
-* [PostGIS, EWKB, and GeoJSON](https://github.com/twpayne/go-geom/tree/master/examples/postgis).
+* [PostGIS, EWKB, and GeoJSON](https://github.com/don4get/go-geom/tree/master/examples/postgis).
 
 ## Detailed features
 
 ### Geometry types
 
-* [Point](https://pkg.go.dev/github.com/twpayne/go-geom#Point)
-* [LineString](https://pkg.go.dev/github.com/twpayne/go-geom#LineString)
-* [Polygon](https://pkg.go.dev/github.com/twpayne/go-geom#Polygon)
-* [MultiPoint](https://pkg.go.dev/github.com/twpayne/go-geom#MultiPoint)
-* [MultiLineString](https://pkg.go.dev/github.com/twpayne/go-geom#MultiLineString)
-* [MultiPolygon](https://pkg.go.dev/github.com/twpayne/go-geom#MultiPolygon)
-* [GeometryCollection](https://pkg.go.dev/github.com/twpayne/go-geom#GeometryCollection)
+* [Point](https://pkg.go.dev/github.com/don4get/go-geom#Point)
+* [LineString](https://pkg.go.dev/github.com/don4get/go-geom#LineString)
+* [Polygon](https://pkg.go.dev/github.com/don4get/go-geom#Polygon)
+* [MultiPoint](https://pkg.go.dev/github.com/don4get/go-geom#MultiPoint)
+* [MultiLineString](https://pkg.go.dev/github.com/don4get/go-geom#MultiLineString)
+* [MultiPolygon](https://pkg.go.dev/github.com/don4get/go-geom#MultiPolygon)
+* [GeometryCollection](https://pkg.go.dev/github.com/don4get/go-geom#GeometryCollection)
 
 ### Encoding and decoding
 
-* [GeoJSON](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/geojson)
-* [IGC](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/igc)
-* [KML](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/kml) (encoding only)
-* [WKB](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/wkb)
-* [EWKB](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/ewkb)
-* [WKT](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/wkt) (encoding only)
-* [WKB Hex](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/wkbhex)
-* [EWKB Hex](https://pkg.go.dev/github.com/twpayne/go-geom/encoding/ewkbhex)
+* [GeoJSON](https://pkg.go.dev/github.com/don4get/go-geom/encoding/geojson)
+* [IGC](https://pkg.go.dev/github.com/don4get/go-geom/encoding/igc)
+* [KML](https://pkg.go.dev/github.com/don4get/go-geom/encoding/kml) (encoding only)
+* [WKB](https://pkg.go.dev/github.com/don4get/go-geom/encoding/wkb)
+* [EWKB](https://pkg.go.dev/github.com/don4get/go-geom/encoding/ewkb)
+* [WKT](https://pkg.go.dev/github.com/don4get/go-geom/encoding/wkt) (encoding only)
+* [WKB Hex](https://pkg.go.dev/github.com/don4get/go-geom/encoding/wkbhex)
+* [EWKB Hex](https://pkg.go.dev/github.com/don4get/go-geom/encoding/ewkbhex)
 
 ### Geometry functions
 
-* [XY](https://pkg.go.dev/github.com/twpayne/go-geom/xy) 2D geometry functions
-* [XYZ](https://pkg.go.dev/github.com/twpayne/go-geom/xyz) 3D geometry functions
+* [XY](https://pkg.go.dev/github.com/don4get/go-geom/xy) 2D geometry functions
+* [XYZ](https://pkg.go.dev/github.com/don4get/go-geom/xyz) 3D geometry functions
 
 ## Protection against malicious or malformed inputs
 

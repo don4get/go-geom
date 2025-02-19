@@ -8,8 +8,8 @@ import (
 
 	"github.com/alecthomas/assert/v2"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/internal/geomtest"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/internal/geomtest"
 )
 
 var _ = []interface {

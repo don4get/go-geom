@@ -11,7 +11,7 @@ This example demonstrates:
 
 Change to this directory:
 
-    $ cd ${GOPATH}/src/github.com/twpayne/go-geom/examples/postgis
+    $ cd ${GOPATH}/src/github.com/don4get/go-geom/examples/postgis
 
 Create a database called `geomtest`:
 

@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // Encode translates a geometry to the corresponding WKT.

@@ -1,15 +1,15 @@
-module github.com/twpayne/go-geom/examples
+module github.com/don4get/go-geom/examples
 
 go 1.23.4
 
-replace github.com/twpayne/go-geom => ..
+replace github.com/don4get/go-geom => ..
 
 require (
 	github.com/alecthomas/assert/v2 v2.11.0
 	github.com/lib/pq v1.10.9
 	github.com/testcontainers/testcontainers-go v0.35.0
 	github.com/testcontainers/testcontainers-go/modules/postgres v0.35.0
-	github.com/twpayne/go-geom v1.5.7
+	github.com/don4get/go-geom v1.5.7
 )
 
 require (

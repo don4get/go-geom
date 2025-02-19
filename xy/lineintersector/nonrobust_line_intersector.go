@@ -1,9 +1,9 @@
 package lineintersector
 
 import (
-	geom "github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/xy/internal"
-	"github.com/twpayne/go-geom/xy/lineintersection"
+	geom "github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/xy/internal"
+	"github.com/don4get/go-geom/xy/lineintersection"
 )
 
 // NonRobustLineIntersector is a performant but non robust line intersection implementation.

@@ -5,9 +5,9 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/xy"
-	"github.com/twpayne/go-geom/xy/internal"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/xy"
+	"github.com/don4get/go-geom/xy/internal"
 )
 
 func TestNewRadialSorting(t *testing.T) {

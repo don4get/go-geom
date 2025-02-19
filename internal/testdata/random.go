@@ -3,8 +3,8 @@ package testdata
 //go:generate python generate-random.py
 
 import (
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/internal/geomtest"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/internal/geomtest"
 )
 
 // Random is a collection of randomly-generated test data.

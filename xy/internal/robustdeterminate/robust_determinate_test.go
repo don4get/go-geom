@@ -3,7 +3,7 @@ package robustdeterminate_test
 import (
 	"testing"
 
-	"github.com/twpayne/go-geom/xy/internal/robustdeterminate"
+	"github.com/don4get/go-geom/xy/internal/robustdeterminate"
 )
 
 func TestSignOfDet2x2(t *testing.T) {

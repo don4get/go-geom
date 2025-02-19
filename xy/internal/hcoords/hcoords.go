@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // GetIntersection Computes the (approximate) intersection point between two line segments

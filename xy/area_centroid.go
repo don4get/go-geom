@@ -3,8 +3,8 @@ package xy
 import (
 	"math"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/xy/internal"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/xy/internal"
 )
 
 // PolygonsCentroid computes the centroid of an area geometry. (Polygon)

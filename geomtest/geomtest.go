@@ -3,7 +3,7 @@ package geomtest
 import (
 	"math"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // CoordsEqualRel returns if c1 and c2 are relatively equal to within epsilon.

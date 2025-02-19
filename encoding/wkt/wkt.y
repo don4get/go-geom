@@ -2,7 +2,7 @@
 
 package wkt
 
-import "github.com/twpayne/go-geom"
+import "github.com/don4get/go-geom"
 
 %}
 

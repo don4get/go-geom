@@ -6,7 +6,7 @@ import (
 	"io"
 	"math"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 func readFloat(buf []byte, byteOrder binary.ByteOrder) float64 {

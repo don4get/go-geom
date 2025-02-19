@@ -6,7 +6,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // An Encoder is an IGC encoder.

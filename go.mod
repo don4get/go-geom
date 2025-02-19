@@ -1,4 +1,4 @@
-module github.com/twpayne/go-geom
+module github.com/don4get/go-geom
 
 go 1.22
 

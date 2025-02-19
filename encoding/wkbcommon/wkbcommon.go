@@ -66,7 +66,7 @@ func (e ErrUnexpectedType) Error() string {
 // service attack).
 //
 // This is a variable, so you can override it in your application code by
-// importing the `github.com/twpayne/go-geom/encoding/wkbcommon` module and
+// importing the `github.com/don4get/go-geom/encoding/wkbcommon` module and
 // setting the value of `wkbcommon.MaxGeometryElements`.
 //
 // FIXME This should be Codec-specific, not global.

@@ -1,6 +1,6 @@
 package internal
 
-import "github.com/twpayne/go-geom"
+import "github.com/don4get/go-geom"
 
 // TestRing is a real-world geometry for use in tests.
 var TestRing = geom.NewLinearRingFlat(geom.XY, []float64{

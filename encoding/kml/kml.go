@@ -4,7 +4,7 @@ package kml
 import (
 	"github.com/twpayne/go-kml/v3"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // Encode encodes an arbitrary geometry.

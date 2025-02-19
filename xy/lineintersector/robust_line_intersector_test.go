@@ -5,8 +5,8 @@ import (
 	"runtime/debug"
 	"testing"
 
-	"github.com/twpayne/go-geom/geomtest"
-	"github.com/twpayne/go-geom/xy/lineintersection"
+	"github.com/don4get/go-geom/geomtest"
+	"github.com/don4get/go-geom/xy/lineintersection"
 )
 
 func TestRobustLineIntersectionPointOnLine(t *testing.T) {

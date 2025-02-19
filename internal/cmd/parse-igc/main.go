@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/twpayne/go-geom/encoding/igc"
+	"github.com/don4get/go-geom/encoding/igc"
 )
 
 func parseIGC(filename string) (*igc.T, error) {

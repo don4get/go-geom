@@ -10,8 +10,8 @@ import (
 	"github.com/alecthomas/assert/v2"
 	_ "github.com/lib/pq"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/encoding/ewkb"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/encoding/ewkb"
 )
 
 func TestPostGIS(t *testing.T) {

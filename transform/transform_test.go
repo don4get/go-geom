@@ -6,7 +6,7 @@ import (
 
 	"github.com/alecthomas/assert/v2"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 func TestUniqueCoords(t *testing.T) {

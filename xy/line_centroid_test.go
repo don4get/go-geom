@@ -4,10 +4,10 @@ import (
 	"math"
 	"testing"
 
-	"github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/geomtest"
-	"github.com/twpayne/go-geom/xy"
-	"github.com/twpayne/go-geom/xy/internal"
+	"github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/geomtest"
+	"github.com/don4get/go-geom/xy"
+	"github.com/don4get/go-geom/xy/internal"
 )
 
 func TestLineCentroidCalculator_GetCentroid_NoGeomsAdded(t *testing.T) {

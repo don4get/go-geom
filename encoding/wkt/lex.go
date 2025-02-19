@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // Constant expected by parser when lexer reaches EOF.

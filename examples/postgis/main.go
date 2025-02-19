@@ -11,10 +11,10 @@ import (
 
 	"github.com/lib/pq"
 
-	geom "github.com/twpayne/go-geom"
-	"github.com/twpayne/go-geom/encoding/ewkb"
-	"github.com/twpayne/go-geom/encoding/ewkbhex"
-	"github.com/twpayne/go-geom/encoding/geojson"
+	geom "github.com/don4get/go-geom"
+	"github.com/don4get/go-geom/encoding/ewkb"
+	"github.com/don4get/go-geom/encoding/ewkbhex"
+	"github.com/don4get/go-geom/encoding/geojson"
 )
 
 var (

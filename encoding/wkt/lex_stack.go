@@ -3,7 +3,7 @@ package wkt
 import (
 	"fmt"
 
-	"github.com/twpayne/go-geom"
+	"github.com/don4get/go-geom"
 )
 
 // layoutStackObj is a stack object used in the layout parsing stack.
