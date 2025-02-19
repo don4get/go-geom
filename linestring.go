@@ -3,7 +3,7 @@ package geom
 // A LineString represents a single, unbroken line, linearly interpreted
 // between zero or more control points.
 type LineString struct {
-	geom1
+	Geom1
 }
 
 // NewLineString returns a new LineString with layout l and no control points.

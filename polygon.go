@@ -4,7 +4,7 @@ package geom
 // LinearRing is the outer boundary. Subsequent LinearRings are inner
 // boundaries (holes).
 type Polygon struct {
-	geom2
+	Geom2
 }
 
 // NewPolygon returns a new, empty, Polygon.

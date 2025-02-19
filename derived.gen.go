@@ -141,36 +141,36 @@ func deriveDeepCopy_(dst, src Coord) {
 // deriveDeepCopy_1 recursively copies the contents of src into dst.
 func deriveDeepCopy_1(dst, src *LinearRing) {
 	func() {
-		field := new(geom1)
-		deriveDeepCopy_8(field, &src.geom1)
-		dst.geom1 = *field
+		field := new(Geom1)
+		deriveDeepCopy_8(field, &src.Geom1)
+		dst.Geom1 = *field
 	}()
 }
 
 // deriveDeepCopy_2 recursively copies the contents of src into dst.
 func deriveDeepCopy_2(dst, src *LineString) {
 	func() {
-		field := new(geom1)
-		deriveDeepCopy_8(field, &src.geom1)
-		dst.geom1 = *field
+		field := new(Geom1)
+		deriveDeepCopy_8(field, &src.Geom1)
+		dst.Geom1 = *field
 	}()
 }
 
 // deriveDeepCopy_3 recursively copies the contents of src into dst.
 func deriveDeepCopy_3(dst, src *MultiLineString) {
 	func() {
-		field := new(geom2)
-		deriveDeepCopy_9(field, &src.geom2)
-		dst.geom2 = *field
+		field := new(Geom2)
+		deriveDeepCopy_9(field, &src.Geom2)
+		dst.Geom2 = *field
 	}()
 }
 
 // deriveDeepCopy_4 recursively copies the contents of src into dst.
 func deriveDeepCopy_4(dst, src *MultiPoint) {
 	func() {
-		field := new(geom2)
-		deriveDeepCopy_9(field, &src.geom2)
-		dst.geom2 = *field
+		field := new(Geom2)
+		deriveDeepCopy_9(field, &src.Geom2)
+		dst.Geom2 = *field
 	}()
 }
 
@@ -186,36 +186,36 @@ func deriveDeepCopy_5(dst, src *MultiPolygon) {
 // deriveDeepCopy_6 recursively copies the contents of src into dst.
 func deriveDeepCopy_6(dst, src *Point) {
 	func() {
-		field := new(geom0)
-		deriveDeepCopy_11(field, &src.geom0)
-		dst.geom0 = *field
+		field := new(Geom0)
+		deriveDeepCopy_11(field, &src.Geom0)
+		dst.Geom0 = *field
 	}()
 }
 
 // deriveDeepCopy_7 recursively copies the contents of src into dst.
 func deriveDeepCopy_7(dst, src *Polygon) {
 	func() {
-		field := new(geom2)
-		deriveDeepCopy_9(field, &src.geom2)
-		dst.geom2 = *field
+		field := new(Geom2)
+		deriveDeepCopy_9(field, &src.Geom2)
+		dst.Geom2 = *field
 	}()
 }
 
 // deriveDeepCopy_8 recursively copies the contents of src into dst.
-func deriveDeepCopy_8(dst, src *geom1) {
+func deriveDeepCopy_8(dst, src *Geom1) {
 	func() {
-		field := new(geom0)
-		deriveDeepCopy_11(field, &src.geom0)
-		dst.geom0 = *field
+		field := new(Geom0)
+		deriveDeepCopy_11(field, &src.Geom0)
+		dst.Geom0 = *field
 	}()
 }
 
 // deriveDeepCopy_9 recursively copies the contents of src into dst.
-func deriveDeepCopy_9(dst, src *geom2) {
+func deriveDeepCopy_9(dst, src *Geom2) {
 	func() {
-		field := new(geom1)
-		deriveDeepCopy_8(field, &src.geom1)
-		dst.geom1 = *field
+		field := new(Geom1)
+		deriveDeepCopy_8(field, &src.Geom1)
+		dst.Geom1 = *field
 	}()
 	if src.Ends == nil {
 		dst.Ends = nil
@@ -240,9 +240,9 @@ func deriveDeepCopy_9(dst, src *geom2) {
 // deriveDeepCopy_10 recursively copies the contents of src into dst.
 func deriveDeepCopy_10(dst, src *geom3) {
 	func() {
-		field := new(geom1)
-		deriveDeepCopy_8(field, &src.geom1)
-		dst.geom1 = *field
+		field := new(Geom1)
+		deriveDeepCopy_8(field, &src.Geom1)
+		dst.Geom1 = *field
 	}()
 	if src.Endss == nil {
 		dst.Endss = nil
@@ -265,7 +265,7 @@ func deriveDeepCopy_10(dst, src *geom3) {
 }
 
 // deriveDeepCopy_11 recursively copies the contents of src into dst.
-func deriveDeepCopy_11(dst, src *geom0) {
+func deriveDeepCopy_11(dst, src *Geom0) {
 	dst.Layout = src.Layout
 	dst.Stride = src.Stride
 	if src.FlatCoords == nil {

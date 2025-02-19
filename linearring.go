@@ -2,7 +2,7 @@ package geom
 
 // A LinearRing is a linear ring.
 type LinearRing struct {
-	geom1
+	Geom1
 }
 
 // NewLinearRing returns a new LinearRing with no coordinates.

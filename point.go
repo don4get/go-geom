@@ -13,7 +13,7 @@ func PointEmptyCoord() float64 {
 
 // A Point represents a single point.
 type Point struct {
-	geom0
+	Geom0
 }
 
 // NewPoint allocates a new Point with layout l and all values zero.

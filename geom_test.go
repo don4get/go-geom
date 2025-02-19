@@ -226,75 +226,75 @@ func TestVerify(t *testing.T) {
 		want error
 	}{
 		{
-			&geom0{},
+			&Geom0{},
 			nil,
 		},
 		{
-			&geom0{NoLayout, 0, Coord{0, 0}, 0},
+			&Geom0{NoLayout, 0, Coord{0, 0}, 0},
 			errNonEmptyFlatCoords,
 		},
 		{
-			&geom0{XY, 1, Coord{0, 0}, 0},
+			&Geom0{XY, 1, Coord{0, 0}, 0},
 			errStrideLayoutMismatch,
 		},
 		{
-			&geom0{XY, 2, Coord{0}, 0},
+			&Geom0{XY, 2, Coord{0}, 0},
 			errLengthStrideMismatch,
 		},
 		{
-			&geom1{},
+			&Geom1{},
 			nil,
 		},
 		{
-			&geom1{geom0{NoLayout, 0, Coord{0}, 0}},
+			&Geom1{Geom0{NoLayout, 0, Coord{0}, 0}},
 			errNonEmptyFlatCoords,
 		},
 		{
-			&geom1{geom0{XY, 1, Coord{0, 0}, 0}},
+			&Geom1{Geom0{XY, 1, Coord{0, 0}, 0}},
 			errStrideLayoutMismatch,
 		},
 		{
-			&geom1{geom0{XY, 2, Coord{0}, 0}},
+			&Geom1{Geom0{XY, 2, Coord{0}, 0}},
 			errLengthStrideMismatch,
 		},
 		{
-			&geom2{},
+			&Geom2{},
 			nil,
 		},
 		{
-			&geom2{geom1{geom0{NoLayout, 0, Coord{0}, 0}}, []int{}},
+			&Geom2{Geom1{Geom0{NoLayout, 0, Coord{0}, 0}}, []int{}},
 			errNonEmptyFlatCoords,
 		},
 		{
-			&geom2{geom1{geom0{NoLayout, 0, Coord{}, 0}}, []int{4}},
+			&Geom2{Geom1{Geom0{NoLayout, 0, Coord{}, 0}}, []int{4}},
 			errNonEmptyEnds,
 		},
 		{
-			&geom2{geom1{geom0{XY, 2, Coord{0}, 0}}, []int{4}},
+			&Geom2{Geom1{Geom0{XY, 2, Coord{0}, 0}}, []int{4}},
 			errLengthStrideMismatch,
 		},
 		{
-			&geom2{geom1{geom0{XY, 1, Coord{0, 0, 0, 0}, 0}}, []int{-1}},
+			&Geom2{Geom1{Geom0{XY, 1, Coord{0, 0, 0, 0}, 0}}, []int{-1}},
 			errStrideLayoutMismatch,
 		},
 		{
-			&geom2{geom1{geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, []int{-1}},
+			&Geom2{Geom1{Geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, []int{-1}},
 			errMisalignedEnd,
 		},
 		{
-			&geom2{geom1{geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, []int{3}},
+			&Geom2{Geom1{Geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, []int{3}},
 			errMisalignedEnd,
 		},
 		{
-			&geom2{geom1{geom0{XY, 2, Coord{0, 0, 0, 0, 0, 0, 0, 0}, 0}}, []int{8, 4}},
+			&Geom2{Geom1{Geom0{XY, 2, Coord{0, 0, 0, 0, 0, 0, 0, 0}, 0}}, []int{8, 4}},
 			errOutOfOrderEnd,
 		},
 		{
-			&geom2{geom1{geom0{XY, 2, Coord{0, 0, 0, 0, 0, 0, 0, 0}, 0}}, []int{4, 4}},
+			&Geom2{Geom1{Geom0{XY, 2, Coord{0, 0, 0, 0, 0, 0, 0, 0}, 0}}, []int{4, 4}},
 			errIncorrectEnd,
 		},
 		{
-			&geom2{geom1{geom0{XY, 2, Coord{0, 0, 0, 0, 0, 0, 0, 0}, 0}}, []int{4, 12}},
+			&Geom2{Geom1{Geom0{XY, 2, Coord{0, 0, 0, 0, 0, 0, 0, 0}, 0}}, []int{4, 12}},
 			errIncorrectEnd,
 		},
 		{
@@ -302,31 +302,31 @@ func TestVerify(t *testing.T) {
 			nil,
 		},
 		{
-			&geom3{geom1{geom0{XY, 3, Coord{}, 0}}, [][]int{}},
+			&geom3{Geom1{Geom0{XY, 3, Coord{}, 0}}, [][]int{}},
 			errStrideLayoutMismatch,
 		},
 		{
-			&geom3{geom1{geom0{NoLayout, 0, Coord{0}, 0}}, [][]int{}},
+			&geom3{Geom1{Geom0{NoLayout, 0, Coord{0}, 0}}, [][]int{}},
 			errNonEmptyFlatCoords,
 		},
 		{
-			&geom3{geom1{geom0{NoLayout, 0, Coord{}, 0}}, [][]int{{0}}},
+			&geom3{Geom1{Geom0{NoLayout, 0, Coord{}, 0}}, [][]int{{0}}},
 			errNonEmptyEndss,
 		},
 		{
-			&geom3{geom1{geom0{XY, 2, Coord{0}, 0}}, [][]int{}},
+			&geom3{Geom1{Geom0{XY, 2, Coord{0}, 0}}, [][]int{}},
 			errLengthStrideMismatch,
 		},
 		{
-			&geom3{geom1{geom0{XY, 2, Coord{0, 0}, 0}}, [][]int{{1}}},
+			&geom3{Geom1{Geom0{XY, 2, Coord{0, 0}, 0}}, [][]int{{1}}},
 			errMisalignedEnd,
 		},
 		{
-			&geom3{geom1{geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, [][]int{{4, 2}}},
+			&geom3{Geom1{Geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, [][]int{{4, 2}}},
 			errOutOfOrderEnd,
 		},
 		{
-			&geom3{geom1{geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, [][]int{{2}}},
+			&geom3{Geom1{Geom0{XY, 2, Coord{0, 0, 0, 0}, 0}}, [][]int{{2}}},
 			errIncorrectEnd,
 		},
 	} {

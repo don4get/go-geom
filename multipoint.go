@@ -5,7 +5,7 @@ type MultiPoint struct {
 	// To represent an MultiPoint that allows EMPTY elements, e.g.
 	// MULTIPOINT ( EMPTY, POINT(1.0 1.0), EMPTY), we have to allow
 	// record ends. If there is an empty point, ends[i] == ends[i-1].
-	geom2
+	Geom2
 }
 
 // NewMultiPoint returns a new, empty, MultiPoint.

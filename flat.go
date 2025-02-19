@@ -2,70 +2,70 @@ package geom
 
 import "math"
 
-type geom0 struct {
+type Geom0 struct {
 	Layout     Layout
 	Stride     int
 	FlatCoords []float64
 	Srid       int
 }
 
-type geom1 struct {
-	geom0
+type Geom1 struct {
+	Geom0
 }
 
-type geom2 struct {
-	geom1
+type Geom2 struct {
+	Geom1
 	Ends []int
 }
 
 type geom3 struct {
-	geom1
+	Geom1
 	Endss [][]int
 }
 
 // GetBounds returns the bounds of g.
-func (g *geom0) GetBounds() *Bounds {
+func (g *Geom0) GetBounds() *Bounds {
 	return NewBounds(g.Layout).extendFlatCoords(g.FlatCoords, 0, len(g.FlatCoords), g.Stride)
 }
 
 // Coords returns all the coordinates in g, i.e. a single coordinate.
-func (g *geom0) Coords() Coord {
+func (g *Geom0) Coords() Coord {
 	return inflate0(g.FlatCoords, 0, len(g.FlatCoords), g.Stride)
 }
 
 // IsEmpty returns true if g contains no coordinates.
-func (g *geom0) IsEmpty() bool {
+func (g *Geom0) IsEmpty() bool {
 	return len(g.FlatCoords) == 0
 }
 
 // GetEnds returns the end indexes of sub-structures of g, i.e. an empty slice.
-func (g *geom0) GetEnds() []int {
+func (g *Geom0) GetEnds() []int {
 	return nil
 }
 
 // GetEndss returns the end indexes of sub-sub-structures of g, i.e. an empty
 // slice.
-func (g *geom0) GetEndss() [][]int {
+func (g *Geom0) GetEndss() [][]int {
 	return nil
 }
 
 // GetFlatCoords returns the flat coordinates of g.
-func (g *geom0) GetFlatCoords() []float64 {
+func (g *Geom0) GetFlatCoords() []float64 {
 	return g.FlatCoords
 }
 
 // GetLayout returns g's layout.
-func (g *geom0) GetLayout() Layout {
+func (g *Geom0) GetLayout() Layout {
 	return g.Layout
 }
 
 // NumCoords returns the number of coordinates in g, i.e. 1.
-func (g *geom0) NumCoords() int {
+func (g *Geom0) NumCoords() int {
 	return 1
 }
 
 // Reserve reserves space in g for n coordinates.
-func (g *geom0) Reserve(n int) {
+func (g *Geom0) Reserve(n int) {
 	if cap(g.FlatCoords) < n*g.Stride {
 		fcs := make([]float64, len(g.FlatCoords), n*g.Stride)
 		copy(fcs, g.FlatCoords)
@@ -74,22 +74,22 @@ func (g *geom0) Reserve(n int) {
 }
 
 // GetSRID returns g's GetSRID.
-func (g *geom0) GetSRID() int {
+func (g *Geom0) GetSRID() int {
 	return g.Srid
 }
 
-func (g *geom0) setCoords(coords0 []float64) error {
+func (g *Geom0) setCoords(coords0 []float64) error {
 	var err error
 	g.FlatCoords, err = deflate0(nil, coords0, g.Stride)
 	return err
 }
 
 // GetStride returns g's stride.
-func (g *geom0) GetStride() int {
+func (g *Geom0) GetStride() int {
 	return g.Stride
 }
 
-func (g *geom0) verify() error {
+func (g *Geom0) verify() error {
 	if g.Stride != g.Layout.Stride() {
 		return errStrideLayoutMismatch
 	}
@@ -106,32 +106,32 @@ func (g *geom0) verify() error {
 }
 
 // Coord returns the ith coord of g.
-func (g *geom1) Coord(i int) Coord {
+func (g *Geom1) Coord(i int) Coord {
 	return g.FlatCoords[i*g.Stride : (i+1)*g.Stride]
 }
 
 // Coords unpacks and returns all of g's coordinates.
-func (g *geom1) Coords() []Coord {
+func (g *Geom1) Coords() []Coord {
 	return inflate1(g.FlatCoords, 0, len(g.FlatCoords), g.Stride)
 }
 
 // NumCoords returns the number of coordinates in g.
-func (g *geom1) NumCoords() int {
+func (g *Geom1) NumCoords() int {
 	return len(g.FlatCoords) / g.Stride
 }
 
 // Reverse reverses the order of g's coordinates.
-func (g *geom1) Reverse() {
+func (g *Geom1) Reverse() {
 	reverse1(g.FlatCoords, 0, len(g.FlatCoords), g.Stride)
 }
 
-func (g *geom1) setCoords(coords1 []Coord) error {
+func (g *Geom1) setCoords(coords1 []Coord) error {
 	var err error
 	g.FlatCoords, err = deflate1(nil, coords1, g.Stride)
 	return err
 }
 
-func (g *geom1) verify() error {
+func (g *Geom1) verify() error {
 	if g.Stride != g.Layout.Stride() {
 		return errStrideLayoutMismatch
 	}
@@ -148,27 +148,27 @@ func (g *geom1) verify() error {
 }
 
 // Coords returns all of g's coordinates.
-func (g *geom2) Coords() [][]Coord {
+func (g *Geom2) Coords() [][]Coord {
 	return inflate2(g.FlatCoords, 0, g.Ends, g.Stride)
 }
 
 // GetEnds returns the end indexes of all sub-structures in g.
-func (g *geom2) GetEnds() []int {
+func (g *Geom2) GetEnds() []int {
 	return g.Ends
 }
 
 // Reverse reverses the order of coordinates for each sub-structure in g.
-func (g *geom2) Reverse() {
+func (g *Geom2) Reverse() {
 	reverse2(g.FlatCoords, 0, g.Ends, g.Stride)
 }
 
-func (g *geom2) setCoords(coords2 [][]Coord) error {
+func (g *Geom2) setCoords(coords2 [][]Coord) error {
 	var err error
 	g.FlatCoords, g.Ends, err = deflate2(nil, nil, coords2, g.Stride)
 	return err
 }
 
-func (g *geom2) verify() error {
+func (g *Geom2) verify() error {
 	if g.Stride != g.Layout.Stride() {
 		return errStrideLayoutMismatch
 	}

@@ -2,7 +2,7 @@ package geom
 
 // A MultiLineString is a collection of LineStrings.
 type MultiLineString struct {
-	geom2
+	Geom2
 }
 
 // NewMultiLineString returns a new MultiLineString with no LineStrings.
