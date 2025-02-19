@@ -33,23 +33,23 @@ func Encode(g geom.T) (kml.Element, error) {
 
 // EncodeLineString encodes a LineString.
 func EncodeLineString(ls *geom.LineString) kml.Element {
-	flatCoords := ls.FlatCoords()
-	return kml.LineString(kml.CoordinatesFlat(flatCoords, 0, len(flatCoords), ls.Stride(), dim(ls.Layout())))
+	flatCoords := ls.GetFlatCoords()
+	return kml.LineString(kml.CoordinatesFlat(flatCoords, 0, len(flatCoords), ls.GetStride(), dim(ls.GetLayout())))
 }
 
 // EncodeLinearRing encodes a LinearRing.
 func EncodeLinearRing(lr *geom.LinearRing) kml.Element {
-	flatCoords := lr.FlatCoords()
-	return kml.LinearRing(kml.CoordinatesFlat(flatCoords, 0, len(flatCoords), lr.Stride(), dim(lr.Layout())))
+	flatCoords := lr.GetFlatCoords()
+	return kml.LinearRing(kml.CoordinatesFlat(flatCoords, 0, len(flatCoords), lr.GetStride(), dim(lr.GetLayout())))
 }
 
 // EncodeMultiLineString encodes a MultiLineString.
 func EncodeMultiLineString(mls *geom.MultiLineString) kml.Element {
 	lineStrings := make([]kml.Element, mls.NumLineStrings())
-	flatCoords := mls.FlatCoords()
-	ends := mls.Ends()
-	stride := mls.Stride()
-	d := dim(mls.Layout())
+	flatCoords := mls.GetFlatCoords()
+	ends := mls.GetEnds()
+	stride := mls.GetStride()
+	d := dim(mls.GetLayout())
 	offset := 0
 	for i, end := range ends {
 		lineStrings[i] = kml.LineString(kml.CoordinatesFlat(flatCoords, offset, end, stride, d))
@@ -61,9 +61,9 @@ func EncodeMultiLineString(mls *geom.MultiLineString) kml.Element {
 // EncodeMultiPoint encodes a MultiPoint.
 func EncodeMultiPoint(mp *geom.MultiPoint) kml.Element {
 	points := make([]kml.Element, mp.NumPoints())
-	flatCoords := mp.FlatCoords()
-	stride := mp.Stride()
-	d := dim(mp.Layout())
+	flatCoords := mp.GetFlatCoords()
+	stride := mp.GetStride()
+	d := dim(mp.GetLayout())
 	for i, offset, end := 0, 0, len(flatCoords); offset < end; i++ {
 		points[i] = kml.Point(kml.CoordinatesFlat(flatCoords, offset, offset+stride, stride, d))
 		offset += stride
@@ -74,10 +74,10 @@ func EncodeMultiPoint(mp *geom.MultiPoint) kml.Element {
 // EncodeMultiPolygon encodes a MultiPolygon.
 func EncodeMultiPolygon(mp *geom.MultiPolygon) kml.Element {
 	polygons := make([]kml.Element, mp.NumPolygons())
-	flatCoords := mp.FlatCoords()
-	endss := mp.Endss()
-	stride := mp.Stride()
-	d := dim(mp.Layout())
+	flatCoords := mp.GetFlatCoords()
+	endss := mp.GetEndss()
+	stride := mp.GetStride()
+	d := dim(mp.GetLayout())
 	offset := 0
 	for i, ends := range endss {
 		boundaries := make([]kml.Element, len(ends))
@@ -97,18 +97,18 @@ func EncodeMultiPolygon(mp *geom.MultiPolygon) kml.Element {
 
 // EncodePoint encodes a Point.
 func EncodePoint(p *geom.Point) kml.Element {
-	flatCoords := p.FlatCoords()
-	return kml.Point(kml.CoordinatesFlat(flatCoords, 0, len(flatCoords), p.Stride(), dim(p.Layout())))
+	flatCoords := p.GetFlatCoords()
+	return kml.Point(kml.CoordinatesFlat(flatCoords, 0, len(flatCoords), p.GetStride(), dim(p.GetLayout())))
 }
 
 // EncodePolygon encodes a Polygon.
 func EncodePolygon(p *geom.Polygon) kml.Element {
 	boundaries := make([]kml.Element, p.NumLinearRings())
-	stride := p.Stride()
-	flatCoords := p.FlatCoords()
-	d := dim(p.Layout())
+	stride := p.GetStride()
+	flatCoords := p.GetFlatCoords()
+	d := dim(p.GetLayout())
 	offset := 0
-	for i, end := range p.Ends() {
+	for i, end := range p.GetEnds() {
 		linearRing := kml.LinearRing(kml.CoordinatesFlat(flatCoords, offset, end, stride, d))
 		if i == 0 {
 			boundaries[i] = kml.OuterBoundaryIs(linearRing)

@@ -19,13 +19,13 @@ type expectedGeometryCollection struct {
 
 func (g *GeometryCollection) assertEqual(t *testing.T, e *expectedGeometryCollection, geoms []T) {
 	t.Helper()
-	assert.Equal(t, e.layout, g.Layout())
-	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.bounds, g.Bounds())
-	assert.Panics(t, func() { g.FlatCoords() })
-	assert.Panics(t, func() { g.Ends() })
-	assert.Panics(t, func() { g.Endss() })
-	assert.Equal(t, e.empty, g.Empty())
+	assert.Equal(t, e.layout, g.GetLayout())
+	assert.Equal(t, e.stride, g.GetStride())
+	assert.Equal(t, e.bounds, g.GetBounds())
+	assert.Panics(t, func() { g.GetFlatCoords() })
+	assert.Panics(t, func() { g.GetEnds() })
+	assert.Panics(t, func() { g.GetEndss() })
+	assert.Equal(t, e.empty, g.IsEmpty())
 	assert.Equal(t, len(geoms), g.NumGeoms())
 	assert.Equal(t, geoms, g.Geoms())
 	for i, geom := range geoms {
@@ -150,19 +150,19 @@ func TestGeometryCollection(t *testing.T) {
 
 func TestGeometryCollectionSetLayout(t *testing.T) {
 	mixedGeomCollection := NewGeometryCollection()
-	assert.Equal(t, NoLayout, mixedGeomCollection.Layout())
+	assert.Equal(t, NoLayout, mixedGeomCollection.GetLayout())
 	assert.NoError(t, mixedGeomCollection.Push(NewPointEmpty(XYZ)))
-	assert.Equal(t, XYZ, mixedGeomCollection.Layout())
+	assert.Equal(t, XYZ, mixedGeomCollection.GetLayout())
 	assert.NoError(t, mixedGeomCollection.Push(NewPointEmpty(XYM)))
-	assert.Equal(t, XYZM, mixedGeomCollection.Layout())
+	assert.Equal(t, XYZM, mixedGeomCollection.GetLayout())
 
 	zmGeomCollection := NewGeometryCollection().MustSetLayout(XYZM)
-	assert.Equal(t, XYZM, zmGeomCollection.Layout())
+	assert.Equal(t, XYZM, zmGeomCollection.GetLayout())
 	assert.NoError(t, zmGeomCollection.Push(NewPointEmpty(XYZM)))
 	assert.Error(t, zmGeomCollection.Push(NewPointEmpty(XY)))
 }
 
 func TestGeometryCollectionSetSRID(t *testing.T) {
-	assert.Equal(t, 4326, NewGeometryCollection().SetSRID(4326).SRID())
-	assert.Equal(t, 4326, Must(SetSRID(NewGeometryCollection(), 4326)).SRID())
+	assert.Equal(t, 4326, NewGeometryCollection().SetSRID(4326).GetSRID())
+	assert.Equal(t, 4326, Must(SetSRID(NewGeometryCollection(), 4326)).GetSRID())
 }

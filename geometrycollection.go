@@ -23,15 +23,15 @@ func (g *GeometryCollection) Geoms() []T {
 	return g.geoms
 }
 
-// Layout returns the smallest layout that covers all of the layouts in g's
+// GetLayout returns the smallest layout that covers all of the layouts in g's
 // geometries.
-func (g *GeometryCollection) Layout() Layout {
+func (g *GeometryCollection) GetLayout() Layout {
 	if g.layout != NoLayout {
 		return g.layout
 	}
 	maxLayout := NoLayout
 	for _, g := range g.geoms {
-		switch l := g.Layout(); l {
+		switch l := g.GetLayout(); l {
 		case XYZ:
 			if maxLayout == XYM {
 				maxLayout = XYZM
@@ -58,50 +58,50 @@ func (g *GeometryCollection) NumGeoms() int {
 	return len(g.geoms)
 }
 
-// Stride returns the stride of g's layout.
-func (g *GeometryCollection) Stride() int {
-	return g.Layout().Stride()
+// GetStride returns the stride of g's layout.
+func (g *GeometryCollection) GetStride() int {
+	return g.GetLayout().Stride()
 }
 
-// Bounds returns the bounds of all the geometries in g.
-func (g *GeometryCollection) Bounds() *Bounds {
+// GetBounds returns the bounds of all the geometries in g.
+func (g *GeometryCollection) GetBounds() *Bounds {
 	// FIXME this needs work for mixing layouts, e.g. XYZ and XYM
-	b := NewBounds(g.Layout())
+	b := NewBounds(g.GetLayout())
 	for _, g := range g.geoms {
 		b = b.Extend(g)
 	}
 	return b
 }
 
-// Empty returns true if the collection is empty.
+// IsEmpty returns true if the collection is empty.
 // This can return true if the GeometryCollection contains multiple Geometry objects
 // which are all empty.
-func (g *GeometryCollection) Empty() bool {
+func (g *GeometryCollection) IsEmpty() bool {
 	for _, g := range g.geoms {
-		if !g.Empty() {
+		if !g.IsEmpty() {
 			return false
 		}
 	}
 	return true
 }
 
-// FlatCoords panics.
-func (g *GeometryCollection) FlatCoords() []float64 {
+// GetFlatCoords panics.
+func (g *GeometryCollection) GetFlatCoords() []float64 {
 	panic("FlatCoords() called on a GeometryCollection")
 }
 
-// Ends panics.
-func (g *GeometryCollection) Ends() []int {
+// GetEnds panics.
+func (g *GeometryCollection) GetEnds() []int {
 	panic("Ends() called on a GeometryCollection")
 }
 
-// Endss panics.
-func (g *GeometryCollection) Endss() [][]int {
+// GetEndss panics.
+func (g *GeometryCollection) GetEndss() [][]int {
 	panic("Endss() called on a GeometryCollection")
 }
 
-// SRID returns g's SRID.
-func (g *GeometryCollection) SRID() int {
+// GetSRID returns g's GetSRID.
+func (g *GeometryCollection) GetSRID() int {
 	return g.srid
 }
 
@@ -118,7 +118,7 @@ func (g *GeometryCollection) MustPush(gs ...T) *GeometryCollection {
 func (g *GeometryCollection) CheckLayout(layout Layout) error {
 	if layout != NoLayout {
 		for _, geom := range g.geoms {
-			if geomLayout := geom.Layout(); geomLayout != layout {
+			if geomLayout := geom.GetLayout(); geomLayout != layout {
 				return ErrLayoutMismatch{
 					Got:  layout,
 					Want: geomLayout,
@@ -141,7 +141,7 @@ func (g *GeometryCollection) MustSetLayout(layout Layout) *GeometryCollection {
 func (g *GeometryCollection) Push(gs ...T) error {
 	if g.layout != NoLayout {
 		for _, geom := range gs {
-			if geomLayout := geom.Layout(); geomLayout != g.layout {
+			if geomLayout := geom.GetLayout(); geomLayout != g.layout {
 				return ErrLayoutMismatch{
 					Got:  geomLayout,
 					Want: g.layout,

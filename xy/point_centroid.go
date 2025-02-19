@@ -7,10 +7,10 @@ import "github.com/twpayne/go-geom"
 // Algorithm: average of all points
 func PointsCentroid(point *geom.Point, extra ...*geom.Point) geom.Coord {
 	calc := NewPointCentroidCalculator()
-	calc.AddCoord(geom.Coord(point.FlatCoords()))
+	calc.AddCoord(geom.Coord(point.GetFlatCoords()))
 
 	for _, p := range extra {
-		calc.AddCoord(geom.Coord(p.FlatCoords()))
+		calc.AddCoord(geom.Coord(p.GetFlatCoords()))
 	}
 
 	return calc.GetCentroid()
@@ -21,8 +21,8 @@ func PointsCentroid(point *geom.Point, extra ...*geom.Point) geom.Coord {
 // Algorithm: average of all points in MultiPoint
 func MultiPointCentroid(point *geom.MultiPoint) geom.Coord {
 	calc := NewPointCentroidCalculator()
-	coords := point.FlatCoords()
-	stride := point.Layout().Stride()
+	coords := point.GetFlatCoords()
+	stride := point.GetLayout().Stride()
 	for i := 0; i < len(coords); i += stride {
 		calc.AddCoord(geom.Coord(coords[i : i+stride]))
 	}
@@ -67,7 +67,7 @@ func NewPointCentroidCalculator() PointCentroidCalculator {
 
 // AddPoint adds a point to the calculation
 func (calc *PointCentroidCalculator) AddPoint(point *geom.Point) {
-	calc.AddCoord(geom.Coord(point.FlatCoords()))
+	calc.AddCoord(geom.Coord(point.GetFlatCoords()))
 }
 
 // AddCoord adds a point to the calculation

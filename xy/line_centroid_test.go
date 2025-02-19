@@ -58,7 +58,7 @@ var lineTestData = []lineDataType{
 	},
 	{
 		lines: []*geom.LineString{
-			geom.NewLineStringFlat(internal.TestRing.Layout(), internal.TestRing.FlatCoords()),
+			geom.NewLineStringFlat(internal.TestRing.GetLayout(), internal.TestRing.GetFlatCoords()),
 		},
 		lineCentroid: geom.Coord{-44.10405031184597, 42.3149062174918},
 	},
@@ -85,11 +85,11 @@ func verifyMultiLineCentroid(t *testing.T, i int, tc lineDataType) {
 	coords := []float64{}
 	ends := []int{}
 	for _, p := range tc.lines {
-		coords = append(coords, p.FlatCoords()...)
+		coords = append(coords, p.GetFlatCoords()...)
 		ends = append(ends, len(coords))
 	}
 
-	layout := tc.lines[0].Layout()
+	layout := tc.lines[0].GetLayout()
 	multiPolygon := geom.NewMultiLineStringFlat(layout, coords, ends)
 	centroid := xy.MultiLineCentroid(multiPolygon)
 
@@ -102,11 +102,11 @@ func verifyLinearRingsCentroid(t *testing.T, i int, tc lineDataType) {
 	t.Helper()
 	rings := make([]*geom.LinearRing, len(tc.lines))
 	for i, p := range tc.lines {
-		coords := append([]float64{}, p.FlatCoords()...)
+		coords := append([]float64{}, p.GetFlatCoords()...)
 		if coords[0] != coords[len(coords)-2] || coords[1] != coords[len(coords)-1] {
 			coords = append(coords, coords[0], coords[1])
 		}
-		rings[i] = geom.NewLinearRingFlat(p.Layout(), coords)
+		rings[i] = geom.NewLinearRingFlat(p.GetLayout(), coords)
 	}
 
 	centroid := xy.LinearRingsCentroid(rings[0], rings[1:]...)
@@ -118,7 +118,7 @@ func verifyLinearRingsCentroid(t *testing.T, i int, tc lineDataType) {
 
 func TestLineGetCentroidPolygons(t *testing.T) {
 	for i, tc := range polygonTestData {
-		calc := xy.NewLineCentroidCalculator(tc.polygons[0].Layout())
+		calc := xy.NewLineCentroidCalculator(tc.polygons[0].GetLayout())
 		for _, p := range tc.polygons {
 			calc.AddPolygon(p)
 		}

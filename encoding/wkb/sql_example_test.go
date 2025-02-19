@@ -106,7 +106,7 @@ func Example_scan_different_shapes() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("%s: %v\n", s.Name, s.Geom.FlatCoords())
+		fmt.Printf("%s: %v\n", s.Name, s.Geom.GetFlatCoords())
 	}
 	if err := rows.Err(); err != nil {
 		log.Fatal(err)

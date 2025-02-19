@@ -15,16 +15,16 @@ func NewPolygon(layout Layout) *Polygon {
 // NewPolygonFlat returns a new Polygon with the given flat coordinates.
 func NewPolygonFlat(layout Layout, flatCoords []float64, ends []int) *Polygon {
 	g := new(Polygon)
-	g.layout = layout
-	g.stride = layout.Stride()
-	g.flatCoords = flatCoords
-	g.ends = ends
+	g.Layout = layout
+	g.Stride = layout.Stride()
+	g.FlatCoords = flatCoords
+	g.Ends = ends
 	return g
 }
 
 // Area returns the area.
 func (g *Polygon) Area() float64 {
-	return doubleArea2(g.flatCoords, 0, g.ends, g.stride) / 2
+	return doubleArea2(g.FlatCoords, 0, g.Ends, g.Stride) / 2
 }
 
 // Clone returns a deep copy.
@@ -34,16 +34,16 @@ func (g *Polygon) Clone() *Polygon {
 
 // Length returns the perimter.
 func (g *Polygon) Length() float64 {
-	return length2(g.flatCoords, 0, g.ends, g.stride)
+	return length2(g.FlatCoords, 0, g.Ends, g.Stride)
 }
 
 // LinearRing returns the ith LinearRing.
 func (g *Polygon) LinearRing(i int) *LinearRing {
 	offset := 0
 	if i > 0 {
-		offset = g.ends[i-1]
+		offset = g.Ends[i-1]
 	}
-	return NewLinearRingFlat(g.layout, g.flatCoords[offset:g.ends[i]])
+	return NewLinearRingFlat(g.Layout, g.FlatCoords[offset:g.Ends[i]])
 }
 
 // MustSetCoords sets the coordinates and panics on any error.
@@ -54,16 +54,16 @@ func (g *Polygon) MustSetCoords(coords [][]Coord) *Polygon {
 
 // NumLinearRings returns the number of LinearRings.
 func (g *Polygon) NumLinearRings() int {
-	return len(g.ends)
+	return len(g.Ends)
 }
 
 // Push appends a LinearRing.
 func (g *Polygon) Push(lr *LinearRing) error {
-	if lr.layout != g.layout {
-		return ErrLayoutMismatch{Got: lr.layout, Want: g.layout}
+	if lr.Layout != g.Layout {
+		return ErrLayoutMismatch{Got: lr.Layout, Want: g.Layout}
 	}
-	g.flatCoords = append(g.flatCoords, lr.flatCoords...)
-	g.ends = append(g.ends, len(g.flatCoords))
+	g.FlatCoords = append(g.FlatCoords, lr.FlatCoords...)
+	g.Ends = append(g.Ends, len(g.FlatCoords))
 	return nil
 }
 
@@ -77,7 +77,7 @@ func (g *Polygon) SetCoords(coords [][]Coord) (*Polygon, error) {
 
 // SetSRID sets the SRID of g.
 func (g *Polygon) SetSRID(srid int) *Polygon {
-	g.srid = srid
+	g.Srid = srid
 	return g
 }
 

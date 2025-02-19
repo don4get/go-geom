@@ -217,23 +217,23 @@ func deriveDeepCopy_9(dst, src *geom2) {
 		deriveDeepCopy_8(field, &src.geom1)
 		dst.geom1 = *field
 	}()
-	if src.ends == nil {
-		dst.ends = nil
+	if src.Ends == nil {
+		dst.Ends = nil
 	} else {
-		if dst.ends != nil {
-			if len(src.ends) > len(dst.ends) {
-				if cap(dst.ends) >= len(src.ends) {
-					dst.ends = (dst.ends)[:len(src.ends)]
+		if dst.Ends != nil {
+			if len(src.Ends) > len(dst.Ends) {
+				if cap(dst.Ends) >= len(src.Ends) {
+					dst.Ends = (dst.Ends)[:len(src.Ends)]
 				} else {
-					dst.ends = make([]int, len(src.ends))
+					dst.Ends = make([]int, len(src.Ends))
 				}
-			} else if len(src.ends) < len(dst.ends) {
-				dst.ends = (dst.ends)[:len(src.ends)]
+			} else if len(src.Ends) < len(dst.Ends) {
+				dst.Ends = (dst.Ends)[:len(src.Ends)]
 			}
 		} else {
-			dst.ends = make([]int, len(src.ends))
+			dst.Ends = make([]int, len(src.Ends))
 		}
-		copy(dst.ends, src.ends)
+		copy(dst.Ends, src.Ends)
 	}
 }
 
@@ -244,49 +244,49 @@ func deriveDeepCopy_10(dst, src *geom3) {
 		deriveDeepCopy_8(field, &src.geom1)
 		dst.geom1 = *field
 	}()
-	if src.endss == nil {
-		dst.endss = nil
+	if src.Endss == nil {
+		dst.Endss = nil
 	} else {
-		if dst.endss != nil {
-			if len(src.endss) > len(dst.endss) {
-				if cap(dst.endss) >= len(src.endss) {
-					dst.endss = (dst.endss)[:len(src.endss)]
+		if dst.Endss != nil {
+			if len(src.Endss) > len(dst.Endss) {
+				if cap(dst.Endss) >= len(src.Endss) {
+					dst.Endss = (dst.Endss)[:len(src.Endss)]
 				} else {
-					dst.endss = make([][]int, len(src.endss))
+					dst.Endss = make([][]int, len(src.Endss))
 				}
-			} else if len(src.endss) < len(dst.endss) {
-				dst.endss = (dst.endss)[:len(src.endss)]
+			} else if len(src.Endss) < len(dst.Endss) {
+				dst.Endss = (dst.Endss)[:len(src.Endss)]
 			}
 		} else {
-			dst.endss = make([][]int, len(src.endss))
+			dst.Endss = make([][]int, len(src.Endss))
 		}
-		deriveDeepCopy_12(dst.endss, src.endss)
+		deriveDeepCopy_12(dst.Endss, src.Endss)
 	}
 }
 
 // deriveDeepCopy_11 recursively copies the contents of src into dst.
 func deriveDeepCopy_11(dst, src *geom0) {
-	dst.layout = src.layout
-	dst.stride = src.stride
-	if src.flatCoords == nil {
-		dst.flatCoords = nil
+	dst.Layout = src.Layout
+	dst.Stride = src.Stride
+	if src.FlatCoords == nil {
+		dst.FlatCoords = nil
 	} else {
-		if dst.flatCoords != nil {
-			if len(src.flatCoords) > len(dst.flatCoords) {
-				if cap(dst.flatCoords) >= len(src.flatCoords) {
-					dst.flatCoords = (dst.flatCoords)[:len(src.flatCoords)]
+		if dst.FlatCoords != nil {
+			if len(src.FlatCoords) > len(dst.FlatCoords) {
+				if cap(dst.FlatCoords) >= len(src.FlatCoords) {
+					dst.FlatCoords = (dst.FlatCoords)[:len(src.FlatCoords)]
 				} else {
-					dst.flatCoords = make([]float64, len(src.flatCoords))
+					dst.FlatCoords = make([]float64, len(src.FlatCoords))
 				}
-			} else if len(src.flatCoords) < len(dst.flatCoords) {
-				dst.flatCoords = (dst.flatCoords)[:len(src.flatCoords)]
+			} else if len(src.FlatCoords) < len(dst.FlatCoords) {
+				dst.FlatCoords = (dst.FlatCoords)[:len(src.FlatCoords)]
 			}
 		} else {
-			dst.flatCoords = make([]float64, len(src.flatCoords))
+			dst.FlatCoords = make([]float64, len(src.FlatCoords))
 		}
-		copy(dst.flatCoords, src.flatCoords)
+		copy(dst.FlatCoords, src.FlatCoords)
 	}
-	dst.srid = src.srid
+	dst.Srid = src.Srid
 }
 
 // deriveDeepCopy_12 recursively copies the contents of src into dst.

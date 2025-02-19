@@ -29,9 +29,9 @@ func NewPointEmpty(l Layout) *Point {
 // NewPointFlat allocates a new Point with layout l and flat coordinates flatCoords.
 func NewPointFlat(l Layout, flatCoords []float64) *Point {
 	g := new(Point)
-	g.layout = l
-	g.stride = l.Stride()
-	g.flatCoords = flatCoords
+	g.Layout = l
+	g.Stride = l.Stride()
+	g.FlatCoords = flatCoords
 	return g
 }
 
@@ -82,7 +82,7 @@ func (g *Point) SetCoords(coords Coord) (*Point, error) {
 
 // SetSRID sets the SRID of g.
 func (g *Point) SetSRID(srid int) *Point {
-	g.srid = srid
+	g.Srid = srid
 	return g
 }
 
@@ -93,28 +93,28 @@ func (g *Point) Swap(g2 *Point) {
 
 // X returns g's X-coordinate.
 func (g *Point) X() float64 {
-	return g.flatCoords[0]
+	return g.FlatCoords[0]
 }
 
 // Y returns g's Y-coordinate.
 func (g *Point) Y() float64 {
-	return g.flatCoords[1]
+	return g.FlatCoords[1]
 }
 
 // Z returns g's Z-coordinate, or zero if g has no Z-coordinate.
 func (g *Point) Z() float64 {
-	zIndex := g.layout.ZIndex()
+	zIndex := g.Layout.ZIndex()
 	if zIndex == -1 {
 		return 0
 	}
-	return g.flatCoords[zIndex]
+	return g.FlatCoords[zIndex]
 }
 
 // M returns g's M-coordinate, or zero if g has no M-coordinate.
 func (g *Point) M() float64 {
-	mIndex := g.layout.MIndex()
+	mIndex := g.Layout.MIndex()
 	if mIndex == -1 {
 		return 0
 	}
-	return g.flatCoords[mIndex]
+	return g.FlatCoords[mIndex]
 }

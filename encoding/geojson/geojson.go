@@ -285,9 +285,9 @@ func encodeJSONFloat64WithMaxDecimalDigits(maxDecimalDigits int) func(interface{
 func EncodeGeometryWithBBox() EncodeGeometryOption {
 	return EncodeGeometryOption{
 		onGeometryHandler: func(g *Geometry, t geom.T, opts ...EncodeGeometryOption) error {
-			bounds := t.Bounds()
-			if t.Empty() {
-				bounds = geom.NewBounds(t.Layout())
+			bounds := t.GetBounds()
+			if t.IsEmpty() {
+				bounds = geom.NewBounds(t.GetLayout())
 			}
 			bbox, err := encodeBBox(bounds)
 			if err != nil {
@@ -357,7 +357,7 @@ func encode(g geom.T, opts ...EncodeGeometryOption) (*Geometry, error) {
 	case *geom.Point:
 		var coords json.RawMessage
 		var coordsIn interface{}
-		if !g.Empty() {
+		if !g.IsEmpty() {
 			coordsIn = g.Coords()
 		} else {
 			coordsIn = []geom.Coord{}

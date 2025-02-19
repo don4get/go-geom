@@ -15,9 +15,9 @@ func NewLineString(l Layout) *LineString {
 // flatCoords.
 func NewLineStringFlat(layout Layout, flatCoords []float64) *LineString {
 	g := new(LineString)
-	g.layout = layout
-	g.stride = layout.Stride()
-	g.flatCoords = flatCoords
+	g.Layout = layout
+	g.Stride = layout.Stride()
+	g.FlatCoords = flatCoords
 	return g
 }
 
@@ -33,38 +33,38 @@ func (g *LineString) Clone() *LineString {
 
 // Interpolate returns the index and delta of val in dimension dim.
 func (g *LineString) Interpolate(val float64, dim int) (int, float64) {
-	n := len(g.flatCoords)
+	n := len(g.FlatCoords)
 	if n == 0 {
 		panic("geom: empty linestring")
 	}
-	if val <= g.flatCoords[dim] {
+	if val <= g.FlatCoords[dim] {
 		return 0, 0
 	}
-	if g.flatCoords[n-g.stride+dim] <= val {
-		return (n - 1) / g.stride, 0
+	if g.FlatCoords[n-g.Stride+dim] <= val {
+		return (n - 1) / g.Stride, 0
 	}
 	low := 0
-	high := n / g.stride
+	high := n / g.Stride
 	for low < high {
 		mid := (low + high) / 2
-		if val < g.flatCoords[mid*g.stride+dim] {
+		if val < g.FlatCoords[mid*g.Stride+dim] {
 			high = mid
 		} else {
 			low = mid + 1
 		}
 	}
 	low--
-	val0 := g.flatCoords[low*g.stride+dim]
+	val0 := g.FlatCoords[low*g.Stride+dim]
 	if val == val0 {
 		return low, 0
 	}
-	val1 := g.flatCoords[(low+1)*g.stride+dim]
+	val1 := g.FlatCoords[(low+1)*g.Stride+dim]
 	return low, (val - val0) / (val1 - val0)
 }
 
 // Length returns the length of g.
 func (g *LineString) Length() float64 {
-	return length1(g.flatCoords, 0, len(g.flatCoords), g.stride)
+	return length1(g.FlatCoords, 0, len(g.FlatCoords), g.Stride)
 }
 
 // MustSetCoords is like SetCoords but it panics on any error.
@@ -83,14 +83,14 @@ func (g *LineString) SetCoords(coords []Coord) (*LineString, error) {
 
 // SetSRID sets the SRID of g.
 func (g *LineString) SetSRID(srid int) *LineString {
-	g.srid = srid
+	g.Srid = srid
 	return g
 }
 
 // SubLineString returns a LineString from starts at index start and stops at
 // index stop of g. The returned LineString aliases g.
 func (g *LineString) SubLineString(start, stop int) *LineString {
-	return NewLineStringFlat(g.layout, g.flatCoords[start*g.stride:stop*g.stride])
+	return NewLineStringFlat(g.Layout, g.FlatCoords[start*g.Stride:stop*g.Stride])
 }
 
 // Swap swaps the values of g and g2.

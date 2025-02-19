@@ -24,9 +24,9 @@ type convexHullCalculator struct {
 func ConvexHull(geometry geom.T) geom.T {
 	// copy coords because the algorithm reorders them
 	calc := convexHullCalculator{
-		layout:   geometry.Layout(),
-		stride:   geometry.Layout().Stride(),
-		inputPts: geometry.FlatCoords(),
+		layout:   geometry.GetLayout(),
+		stride:   geometry.GetLayout().Stride(),
+		inputPts: geometry.GetFlatCoords(),
 	}
 
 	return calc.getConvexHull()

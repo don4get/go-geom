@@ -21,13 +21,13 @@ type expectedLineString struct {
 func (g *LineString) assertEquals(t *testing.T, e *expectedLineString) {
 	t.Helper()
 	assert.NoError(t, g.verify())
-	assert.Equal(t, e.layout, g.Layout())
-	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
-	assert.Zero(t, g.Ends())
-	assert.Zero(t, g.Endss())
+	assert.Equal(t, e.layout, g.GetLayout())
+	assert.Equal(t, e.stride, g.GetStride())
+	assert.Equal(t, e.flatCoords, g.GetFlatCoords())
+	assert.Zero(t, g.GetEnds())
+	assert.Zero(t, g.GetEndss())
 	assert.Equal(t, e.coords, g.Coords())
-	assert.Equal(t, e.bounds, g.Bounds())
+	assert.Equal(t, e.bounds, g.GetBounds())
 	assert.Equal(t, len(e.coords), g.NumCoords())
 	for i, c := range e.coords {
 		assert.Equal(t, c, g.Coord(i))
@@ -82,7 +82,7 @@ func TestLineString(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.ls.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.ls.FlatCoords(), tc.ls.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.ls.GetFlatCoords(), tc.ls.Clone().GetFlatCoords()))
 		})
 	}
 }
@@ -116,9 +116,9 @@ func TestLineStringInterpolateEmpty(t *testing.T) {
 
 func TestLineStringReserve(t *testing.T) {
 	ls := NewLineString(XYZM)
-	assert.Equal(t, 0, cap(ls.flatCoords))
+	assert.Equal(t, 0, cap(ls.FlatCoords))
 	ls.Reserve(2)
-	assert.Equal(t, 8, cap(ls.flatCoords))
+	assert.Equal(t, 8, cap(ls.FlatCoords))
 }
 
 func TestLineStringStrideMismatch(t *testing.T) {
@@ -166,12 +166,12 @@ func TestLineStringStrideMismatch(t *testing.T) {
 }
 
 func TestLineStringSetSRID(t *testing.T) {
-	assert.Equal(t, 4326, NewLineString(NoLayout).SetSRID(4326).SRID())
-	assert.Equal(t, 4326, Must(SetSRID(NewLineString(NoLayout), 4326)).SRID())
+	assert.Equal(t, 4326, NewLineString(NoLayout).SetSRID(4326).GetSRID())
+	assert.Equal(t, 4326, Must(SetSRID(NewLineString(NoLayout), 4326)).GetSRID())
 }
 
 func TestLineStringSubLineString(t *testing.T) {
 	ls := NewLineString(XY).MustSetCoords([]Coord{{0, 1}, {2, 3}, {4, 5}})
 	sls := ls.SubLineString(0, 1)
-	assert.True(t, aliases(ls.FlatCoords(), sls.FlatCoords()))
+	assert.True(t, aliases(ls.GetFlatCoords(), sls.GetFlatCoords()))
 }

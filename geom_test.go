@@ -19,7 +19,7 @@ var (
 	}
 	_ = []interface {
 		Area() float64
-		Empty() bool
+		IsEmpty() bool
 		Length() float64
 	}{
 		&LineString{},

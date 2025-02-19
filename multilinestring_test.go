@@ -23,17 +23,17 @@ type expectedMultiLineString struct {
 func (g *MultiLineString) assertEquals(t *testing.T, e *expectedMultiLineString) {
 	t.Helper()
 	assert.NoError(t, g.verify())
-	assert.Equal(t, e.layout, g.Layout())
-	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
-	assert.Equal(t, e.ends, g.Ends())
-	assert.Zero(t, g.Endss())
+	assert.Equal(t, e.layout, g.GetLayout())
+	assert.Equal(t, e.stride, g.GetStride())
+	assert.Equal(t, e.flatCoords, g.GetFlatCoords())
+	assert.Equal(t, e.ends, g.GetEnds())
+	assert.Zero(t, g.GetEndss())
 	assert.Equal(t, e.coords, g.Coords())
-	assert.Equal(t, e.bounds, g.Bounds())
-	assert.Equal(t, e.empty, g.Empty())
+	assert.Equal(t, e.bounds, g.GetBounds())
+	assert.Equal(t, e.empty, g.IsEmpty())
 	assert.Equal(t, len(e.coords), g.NumLineStrings())
 	for i, c := range e.coords {
-		assert.Equal(t, NewLineString(g.Layout()).MustSetCoords(c), g.LineString(i))
+		assert.Equal(t, NewLineString(g.GetLayout()).MustSetCoords(c), g.LineString(i))
 	}
 }
 
@@ -93,7 +93,7 @@ func TestMultiLineString(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.mls.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.mls.FlatCoords(), tc.mls.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.mls.GetFlatCoords(), tc.mls.Clone().GetFlatCoords()))
 		})
 	}
 }
@@ -143,6 +143,6 @@ func TestMultiLineStringStrideMismatch(t *testing.T) {
 }
 
 func TestMultiLineStringSetSRID(t *testing.T) {
-	assert.Equal(t, 4326, NewMultiLineString(NoLayout).SetSRID(4326).SRID())
-	assert.Equal(t, 4326, Must(SetSRID(NewMultiLineString(NoLayout), 4326)).SRID())
+	assert.Equal(t, 4326, NewMultiLineString(NoLayout).SetSRID(4326).GetSRID())
+	assert.Equal(t, 4326, Must(SetSRID(NewMultiLineString(NoLayout), 4326)).GetSRID())
 }

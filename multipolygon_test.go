@@ -23,17 +23,17 @@ type expectedMultiPolygon struct {
 func (g *MultiPolygon) assertEquals(t *testing.T, e *expectedMultiPolygon) {
 	t.Helper()
 	assert.NoError(t, g.verify())
-	assert.Equal(t, e.layout, g.Layout())
-	assert.Equal(t, e.stride, g.Stride())
+	assert.Equal(t, e.layout, g.GetLayout())
+	assert.Equal(t, e.stride, g.GetStride())
 	assert.Equal(t, e.coords, g.Coords())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
-	assert.Zero(t, g.Ends())
-	assert.Equal(t, e.endss, g.Endss())
-	assert.Equal(t, e.bounds, g.Bounds())
-	assert.Equal(t, e.empty, g.Empty())
+	assert.Equal(t, e.flatCoords, g.GetFlatCoords())
+	assert.Zero(t, g.GetEnds())
+	assert.Equal(t, e.endss, g.GetEndss())
+	assert.Equal(t, e.bounds, g.GetBounds())
+	assert.Equal(t, e.empty, g.IsEmpty())
 	assert.Equal(t, len(e.coords), g.NumPolygons())
 	for i, c := range e.coords {
-		assert.Equal(t, NewPolygon(g.Layout()).MustSetCoords(c), g.Polygon(i))
+		assert.Equal(t, NewPolygon(g.GetLayout()).MustSetCoords(c), g.Polygon(i))
 	}
 }
 
@@ -105,14 +105,14 @@ func TestMultiPolygon(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.mp.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.mp.FlatCoords(), tc.mp.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.mp.GetFlatCoords(), tc.mp.Clone().GetFlatCoords()))
 		})
 	}
 }
 
 func TestMultiPolygonSetSRID(t *testing.T) {
-	assert.Equal(t, 4326, NewMultiPolygon(NoLayout).SetSRID(4326).SRID())
-	assert.Equal(t, 4326, Must(SetSRID(NewMultiPolygon(NoLayout), 4326)).SRID())
+	assert.Equal(t, 4326, NewMultiPolygon(NoLayout).SetSRID(4326).GetSRID())
+	assert.Equal(t, 4326, Must(SetSRID(NewMultiPolygon(NoLayout), 4326)).GetSRID())
 }
 
 func TestMultiPolygonStrideMismatch(t *testing.T) {

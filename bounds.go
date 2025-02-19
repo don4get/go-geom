@@ -30,11 +30,11 @@ func (b *Bounds) Clone() *Bounds {
 
 // Extend extends b to include geometry g.
 func (b *Bounds) Extend(g T) *Bounds {
-	b.extendLayout(g.Layout())
-	if b.layout == XYZM && g.Layout() == XYM {
-		return b.extendXYZMFlatCoordsWithXYM(g.FlatCoords(), 0, len(g.FlatCoords()))
+	b.extendLayout(g.GetLayout())
+	if b.layout == XYZM && g.GetLayout() == XYM {
+		return b.extendXYZMFlatCoordsWithXYM(g.GetFlatCoords(), 0, len(g.GetFlatCoords()))
 	}
-	return b.extendFlatCoords(g.FlatCoords(), 0, len(g.FlatCoords()), g.Stride())
+	return b.extendFlatCoords(g.GetFlatCoords(), 0, len(g.GetFlatCoords()), g.GetStride())
 }
 
 // IsEmpty returns true if b is empty.

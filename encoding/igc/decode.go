@@ -359,5 +359,5 @@ func Read(r io.Reader) (*T, error) {
 
 // HasCoords returns true if t has at least one coordinate.
 func (t *T) HasCoords() bool {
-	return !t.LineString.Empty()
+	return !t.LineString.IsEmpty()
 }

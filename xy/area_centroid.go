@@ -21,7 +21,7 @@ import (
 //
 // In this case, the centroid of the line segments in the polygon will be returned.
 func PolygonsCentroid(polygon *geom.Polygon, extraPolys ...*geom.Polygon) (centroid geom.Coord) {
-	calc := NewAreaCentroidCalculator(polygon.Layout())
+	calc := NewAreaCentroidCalculator(polygon.GetLayout())
 	calc.AddPolygon(polygon)
 	for _, p := range extraPolys {
 		calc.AddPolygon(p)
@@ -43,7 +43,7 @@ func PolygonsCentroid(polygon *geom.Polygon, extraPolys ...*geom.Polygon) (centr
 //
 // In this case, the centroid of the line segments in the polygon will be returned.
 func MultiPolygonCentroid(polygon *geom.MultiPolygon) (centroid geom.Coord) {
-	calc := NewAreaCentroidCalculator(polygon.Layout())
+	calc := NewAreaCentroidCalculator(polygon.GetLayout())
 	for i := range polygon.NumPolygons() {
 		calc.AddPolygon(polygon.Polygon(i))
 	}
@@ -102,9 +102,9 @@ func (calc *AreaCentroidCalculator) GetCentroid() geom.Coord {
 func (calc *AreaCentroidCalculator) AddPolygon(polygon *geom.Polygon) {
 	calc.setBasePoint(polygon.Coord(0))
 
-	calc.addShell(polygon.LinearRing(0).FlatCoords())
+	calc.addShell(polygon.LinearRing(0).GetFlatCoords())
 	for i := 1; i < polygon.NumLinearRings(); i++ {
-		calc.addHole(polygon.LinearRing(i).FlatCoords())
+		calc.addHole(polygon.LinearRing(i).GetFlatCoords())
 	}
 }
 

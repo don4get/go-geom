@@ -121,14 +121,14 @@ func (c Coord) Equal(layout Layout, other Coord) bool {
 
 // T is a generic interface implemented by all geometry types.
 type T interface {
-	Layout() Layout
-	Stride() int
-	Bounds() *Bounds
-	FlatCoords() []float64
-	Ends() []int
-	Endss() [][]int
-	SRID() int
-	Empty() bool
+	GetLayout() Layout
+	GetStride() int
+	GetBounds() *Bounds
+	GetFlatCoords() []float64
+	GetEnds() []int
+	GetEndss() [][]int
+	GetSRID() int
+	IsEmpty() bool
 }
 
 // MIndex returns the index of the M dimension, or -1 if the l does not have an
@@ -222,8 +222,8 @@ func SetSRID(g T, srid int) (T, error) {
 // TransformInPlace replaces all coordinates in g using f.
 func TransformInPlace(g T, f func(Coord)) T {
 	var (
-		flatCoords = g.FlatCoords()
-		stride     = g.Stride()
+		flatCoords = g.GetFlatCoords()
+		stride     = g.GetStride()
 	)
 	for i, n := 0, len(flatCoords); i < n; i += stride {
 		f(flatCoords[i : i+stride])

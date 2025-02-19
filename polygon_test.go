@@ -31,16 +31,16 @@ type expectedPolygon struct {
 func (g *Polygon) assertEquals(t *testing.T, e *expectedPolygon) {
 	t.Helper()
 	assert.NoError(t, g.verify())
-	assert.Equal(t, e.layout, g.Layout())
-	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
-	assert.Equal(t, e.ends, g.Ends())
-	assert.Zero(t, g.Endss())
+	assert.Equal(t, e.layout, g.GetLayout())
+	assert.Equal(t, e.stride, g.GetStride())
+	assert.Equal(t, e.flatCoords, g.GetFlatCoords())
+	assert.Equal(t, e.ends, g.GetEnds())
+	assert.Zero(t, g.GetEndss())
 	assert.Equal(t, e.coords, g.Coords())
-	assert.Equal(t, e.bounds, g.Bounds())
+	assert.Equal(t, e.bounds, g.GetBounds())
 	assert.Equal(t, len(e.coords), g.NumLinearRings())
 	for i, c := range e.coords {
-		assert.Equal(t, NewLinearRing(g.Layout()).MustSetCoords(c), g.LinearRing(i))
+		assert.Equal(t, NewLinearRing(g.GetLayout()).MustSetCoords(c), g.LinearRing(i))
 	}
 }
 
@@ -63,7 +63,7 @@ func TestPolygon(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.p.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.p.FlatCoords(), tc.p.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.p.GetFlatCoords(), tc.p.Clone().GetFlatCoords()))
 		})
 	}
 }
@@ -113,8 +113,8 @@ func TestPolygonStrideMismatch(t *testing.T) {
 }
 
 func TestPolygonSetSRID(t *testing.T) {
-	assert.Equal(t, 4326, NewPolygon(NoLayout).SetSRID(4326).SRID())
-	assert.Equal(t, 4326, Must(SetSRID(NewPolygon(NoLayout), 4326)).SRID())
+	assert.Equal(t, 4326, NewPolygon(NoLayout).SetSRID(4326).GetSRID())
+	assert.Equal(t, 4326, Must(SetSRID(NewPolygon(NoLayout), 4326)).GetSRID())
 }
 
 func TestPolygonArea(t *testing.T) {

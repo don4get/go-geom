@@ -181,7 +181,7 @@ func Read(r io.Reader, opts ...wkbcommon.WKBOption) (geom.T, error) {
 		}
 		// If EMPTY, mark the collection with a fixed layout to differentiate
 		// GEOMETRYCOLLECTION EMPTY between 2D/Z/M/ZM.
-		if gc.Empty() && gc.NumGeoms() == 0 {
+		if gc.IsEmpty() && gc.NumGeoms() == 0 {
 			if err := gc.SetLayout(layout); err != nil {
 				return nil, err
 			}
@@ -238,11 +238,11 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T, opts ...wkbcommon.
 	default:
 		return geom.ErrUnsupportedType{Value: g}
 	}
-	switch g.Layout() {
+	switch g.GetLayout() {
 	case geom.NoLayout:
 		// Special case for empty GeometryCollections
-		if _, ok := g.(*geom.GeometryCollection); !ok || !g.Empty() {
-			return geom.ErrUnsupportedLayout(g.Layout())
+		if _, ok := g.(*geom.GeometryCollection); !ok || !g.IsEmpty() {
+			return geom.ErrUnsupportedLayout(g.GetLayout())
 		}
 	case geom.XY:
 		wkbGeometryType += wkbXYID
@@ -253,7 +253,7 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T, opts ...wkbcommon.
 	case geom.XYZM:
 		wkbGeometryType += wkbXYZMID
 	default:
-		return geom.ErrUnsupportedLayout(g.Layout())
+		return geom.ErrUnsupportedLayout(g.GetLayout())
 	}
 	if err := wkbcommon.WriteUInt32(w, byteOrder, wkbGeometryType); err != nil {
 		return err
@@ -261,21 +261,21 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T, opts ...wkbcommon.
 
 	switch g := g.(type) {
 	case *geom.Point:
-		if g.Empty() {
+		if g.IsEmpty() {
 			switch params.EmptyPointHandling {
 			case wkbcommon.EmptyPointHandlingNaN:
-				return wkbcommon.WriteEmptyPointAsNaN(w, byteOrder, g.Stride())
+				return wkbcommon.WriteEmptyPointAsNaN(w, byteOrder, g.GetStride())
 			case wkbcommon.EmptyPointHandlingError:
 				return errors.New("cannot encode empty Point in WKB")
 			default:
 				return fmt.Errorf("cannot encode empty Point in WKB (unknown option: %d)", wkbcommon.EmptyPointHandlingNaN)
 			}
 		}
-		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.FlatCoords())
+		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.GetFlatCoords())
 	case *geom.LineString:
-		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.FlatCoords(), g.Stride())
+		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.GetFlatCoords(), g.GetStride())
 	case *geom.Polygon:
-		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.FlatCoords(), g.Ends(), g.Stride())
+		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.GetFlatCoords(), g.GetEnds(), g.GetStride())
 	case *geom.MultiPoint:
 		n := g.NumPoints()
 		if err := wkbcommon.WriteUInt32(w, byteOrder, uint32(n)); err != nil {

@@ -180,7 +180,7 @@ func Read(r io.Reader) (geom.T, error) {
 		}
 		// If EMPTY, mark the collection with a fixed layout to differentiate
 		// GEOMETRYCOLLECTION EMPTY between 2D/Z/M/ZM.
-		if gc.Empty() && gc.NumGeoms() == 0 {
+		if gc.IsEmpty() && gc.NumGeoms() == 0 {
 			if err := gc.SetLayout(layout); err != nil {
 				return nil, err
 			}
@@ -230,11 +230,11 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T) error {
 	default:
 		return geom.ErrUnsupportedType{Value: g}
 	}
-	switch g.Layout() {
+	switch g.GetLayout() {
 	case geom.NoLayout:
 		// Special case for empty GeometryCollections
-		if _, ok := g.(*geom.GeometryCollection); !ok || !g.Empty() {
-			return geom.ErrUnsupportedLayout(g.Layout())
+		if _, ok := g.(*geom.GeometryCollection); !ok || !g.IsEmpty() {
+			return geom.ErrUnsupportedLayout(g.GetLayout())
 		}
 	case geom.XY:
 	case geom.XYZ:
@@ -244,9 +244,9 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T) error {
 	case geom.XYZM:
 		ewkbGeometryType |= ewkbZ | ewkbM
 	default:
-		return geom.ErrUnsupportedLayout(g.Layout())
+		return geom.ErrUnsupportedLayout(g.GetLayout())
 	}
-	srid := g.SRID()
+	srid := g.GetSRID()
 	if srid != 0 {
 		ewkbGeometryType |= ewkbSRID
 	}
@@ -261,14 +261,14 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T) error {
 
 	switch g := g.(type) {
 	case *geom.Point:
-		if g.Empty() {
-			return wkbcommon.WriteEmptyPointAsNaN(w, byteOrder, g.Stride())
+		if g.IsEmpty() {
+			return wkbcommon.WriteEmptyPointAsNaN(w, byteOrder, g.GetStride())
 		}
-		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.FlatCoords())
+		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.GetFlatCoords())
 	case *geom.LineString:
-		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.FlatCoords(), g.Stride())
+		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.GetFlatCoords(), g.GetStride())
 	case *geom.Polygon:
-		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.FlatCoords(), g.Ends(), g.Stride())
+		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.GetFlatCoords(), g.GetEnds(), g.GetStride())
 	case *geom.MultiPoint:
 		n := g.NumPoints()
 		if err := binary.Write(w, byteOrder, uint32(n)); err != nil {

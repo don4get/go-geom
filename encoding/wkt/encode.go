@@ -36,11 +36,11 @@ func (e *Encoder) write(sb *strings.Builder, g geom.T) error {
 	default:
 		return geom.ErrUnsupportedType{Value: g}
 	}
-	layout := g.Layout()
+	layout := g.GetLayout()
 	switch layout {
 	case geom.NoLayout:
 		// Special case for empty GeometryCollections
-		if g, ok := g.(*geom.GeometryCollection); !ok || !g.Empty() {
+		if g, ok := g.(*geom.GeometryCollection); !ok || !g.IsEmpty() {
 			return geom.ErrUnsupportedLayout(layout)
 		}
 	case geom.XY:
@@ -58,40 +58,40 @@ func (e *Encoder) write(sb *strings.Builder, g geom.T) error {
 	}
 	switch g := g.(type) {
 	case *geom.Point:
-		if g.Empty() {
+		if g.IsEmpty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords0(sb, g.FlatCoords(), layout.Stride())
+		return e.writeFlatCoords0(sb, g.GetFlatCoords(), layout.Stride())
 	case *geom.LineString:
-		if g.Empty() {
+		if g.IsEmpty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords1(sb, g.FlatCoords(), layout.Stride())
+		return e.writeFlatCoords1(sb, g.GetFlatCoords(), layout.Stride())
 	case *geom.LinearRing:
-		if g.Empty() {
+		if g.IsEmpty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords1(sb, g.FlatCoords(), layout.Stride())
+		return e.writeFlatCoords1(sb, g.GetFlatCoords(), layout.Stride())
 	case *geom.Polygon:
-		if g.Empty() {
+		if g.IsEmpty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords2(sb, g.FlatCoords(), 0, g.Ends(), layout.Stride())
+		return e.writeFlatCoords2(sb, g.GetFlatCoords(), 0, g.GetEnds(), layout.Stride())
 	case *geom.MultiPoint:
 		if g.NumPoints() == 0 {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords1Ends(sb, g.FlatCoords(), 0, g.Ends())
+		return e.writeFlatCoords1Ends(sb, g.GetFlatCoords(), 0, g.GetEnds())
 	case *geom.MultiLineString:
 		if g.NumLineStrings() == 0 {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords2(sb, g.FlatCoords(), 0, g.Ends(), layout.Stride())
+		return e.writeFlatCoords2(sb, g.GetFlatCoords(), 0, g.GetEnds(), layout.Stride())
 	case *geom.MultiPolygon:
 		if g.NumPolygons() == 0 {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords3(sb, g.FlatCoords(), g.Endss(), layout.Stride())
+		return e.writeFlatCoords3(sb, g.GetFlatCoords(), g.GetEndss(), layout.Stride())
 	case *geom.GeometryCollection:
 		if g.NumGeoms() == 0 {
 			return e.writeEMPTY(sb)

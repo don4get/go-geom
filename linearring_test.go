@@ -21,13 +21,13 @@ type expectedLinearRing struct {
 func (g *LinearRing) assertEquals(t *testing.T, e *expectedLinearRing) {
 	t.Helper()
 	assert.NoError(t, g.verify())
-	assert.Equal(t, e.layout, g.Layout())
-	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
-	assert.Zero(t, g.Ends())
-	assert.Zero(t, g.Endss())
+	assert.Equal(t, e.layout, g.GetLayout())
+	assert.Equal(t, e.stride, g.GetStride())
+	assert.Equal(t, e.flatCoords, g.GetFlatCoords())
+	assert.Zero(t, g.GetEnds())
+	assert.Zero(t, g.GetEndss())
 	assert.Equal(t, e.coords, g.Coords())
-	assert.Equal(t, e.bounds, g.Bounds())
+	assert.Equal(t, e.bounds, g.GetBounds())
 	assert.Equal(t, len(e.coords), g.NumCoords())
 	for i, c := range e.coords {
 		assert.Equal(t, c, g.Coord(i))
@@ -82,7 +82,7 @@ func TestLinearRing(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.lr.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.lr.FlatCoords(), tc.lr.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.lr.GetFlatCoords(), tc.lr.Clone().GetFlatCoords()))
 		})
 	}
 }
@@ -132,6 +132,6 @@ func TestLinearRingStrideMismatch(t *testing.T) {
 }
 
 func TestLinearRingSetSRID(t *testing.T) {
-	assert.Equal(t, 4326, NewLinearRing(NoLayout).SetSRID(4326).SRID())
-	assert.Equal(t, 4326, Must(SetSRID(NewLinearRing(NoLayout), 4326)).SRID())
+	assert.Equal(t, 4326, NewLinearRing(NoLayout).SetSRID(4326).GetSRID())
+	assert.Equal(t, 4326, Must(SetSRID(NewLinearRing(NoLayout), 4326)).GetSRID())
 }

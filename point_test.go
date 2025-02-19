@@ -21,14 +21,14 @@ type expectedPoint struct {
 func (g *Point) assertEquals(t *testing.T, e *expectedPoint) {
 	t.Helper()
 	assert.NoError(t, g.verify())
-	assert.Equal(t, e.layout, g.Layout())
-	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
-	assert.Zero(t, g.Ends())
-	assert.Zero(t, g.Endss())
+	assert.Equal(t, e.layout, g.GetLayout())
+	assert.Equal(t, e.stride, g.GetStride())
+	assert.Equal(t, e.flatCoords, g.GetFlatCoords())
+	assert.Zero(t, g.GetEnds())
+	assert.Zero(t, g.GetEndss())
 	assert.Equal(t, 1, g.NumCoords())
 	assert.Equal(t, e.coords, g.Coords())
-	assert.Equal(t, e.bounds, g.Bounds())
+	assert.Equal(t, e.bounds, g.GetBounds())
 }
 
 func TestPoint(t *testing.T) {
@@ -119,7 +119,7 @@ func TestPoint(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.p.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.p.FlatCoords(), tc.p.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.p.GetFlatCoords(), tc.p.Clone().GetFlatCoords()))
 		})
 	}
 }
@@ -177,8 +177,8 @@ func TestPointCloneAndSwap(t *testing.T) {
 }
 
 func TestPointSetSRID(t *testing.T) {
-	assert.Equal(t, 4326, NewPoint(NoLayout).SetSRID(4326).SRID())
-	assert.Equal(t, 4326, Must(SetSRID(NewPoint(NoLayout), 4326)).SRID())
+	assert.Equal(t, 4326, NewPoint(NoLayout).SetSRID(4326).GetSRID())
+	assert.Equal(t, 4326, Must(SetSRID(NewPoint(NoLayout), 4326)).GetSRID())
 }
 
 func TestPointXYZM(t *testing.T) {
